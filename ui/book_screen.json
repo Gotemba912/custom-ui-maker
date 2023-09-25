@@ -1,0 +1,362 @@
+/***********************
+*   Custom UI Maker    *
+* Created by YuuhaLand *
+***********************/
+
+{
+    "namespace": "book",
+
+    "page_text2_box@common.multiline_text_edit_box": {
+    "size": [ "100%", "100%cm" ],
+    "min_size": [ "100%", "100%" ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "max_length": 1000,
+
+    "$text_edit_box_content_binding_type": "collection",
+    "$text_edit_box_grid_collection_name": "book_pages",
+    "$text_box_enabled_binding_name": "#editable",
+    "$text_box_name": "#page_text_box",
+    "$text_background_default": "book.text_edit_defalut_image_2",
+    "$text_edit_box_content_binding_name": "#text_box_item_name",
+
+    "$text_background_hover": "book.text_edit_hover_image_2",
+    "$text_edit_box_focusable_binding_name": "#editable",
+    "constrain_to_rect": false,
+    "text_control": "label",
+    "controls": [
+      {
+        "label@common.text_edit_box_label": {
+          "layer": 1,
+          "size": [ "100%", "default" ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+		       "$locked_text_alpha": 1.0
+        }
+      },
+      {
+        "visibility_panel": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "controls": [
+            {
+              "place_holder@common.text_edit_box_place_holder_label": {
+                "layer": 1,
+                "size": [ "100%", "default" ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left"
+              }
+            }
+          ],
+
+          "bindings": [
+            {
+              "binding_type": "view",
+              "source_control_name": "label",
+              "source_property_name": "(#item_name = '')",
+              "target_property_name": "#visible",
+              "resolve_sibling_scope": true
+            }
+          ]
+        }
+      },
+      { "background@common.empty_panel": { "size": [ "100%", "100%sm" ] } }
+    ]
+  },
+  
+  "page_text2@common.scrolling_panel": {
+    "size": [ "100% - 6px", "100%" ],
+    "offset": [ 2, 0 ],
+    "$always_handle_scrolling": true,
+    "$scrolling_content": "book.page_text2_box",
+    "$show_background": false,
+    "$scrolling_panel_size": [ "100% - 2px", "100%" ],
+    "$scroll_size": [ "4px", "100% - 2px" ]
+  },
+  "sign_panel_scroll@common.scrolling_panel": {
+    "$show_background": false,
+    "$scrolling_content": "book.sign_panel",
+    "$scrolling_panel_size": [ "100% - 2px", "100%" ],
+    "$scroll_size": [ "4px", "100% - 2px" ],
+    "$always_handle_scrolling": false
+  },
+  "title_text_box_multiline@common.multiline_text_edit_box": {
+    "size": [ "100%", 30 ],
+    "max_length": 100,
+    "$place_holder_text": "book.titleHere",
+    "$text_box_name": "#title_text_box",
+    "$text_box_enabled_binding_name": "#editable",
+
+    "$text_edit_box_content_binding_name": "#title_text_box_item_name",
+
+    "$enable_profanity_filter": true
+  },
+  "author_label2": {
+    "type": "label",
+    "size": [ "default", 18 ],
+    "offset": [ 0, "4px" ],
+
+    "text": "book.byAuthor"
+  },
+  "author_text_box_multiline@common.multiline_text_edit_box": {
+    "size": [ "100%", 30 ],
+    "offset": [ "1px", 0 ],
+    "max_length": 100,
+    "constrain_to_rect": true,
+
+    "$text_box_name": "#author_text_box",
+    "$text_box_enabled_binding_name": "#author_editable",
+    "$text_edit_box_content_binding_name": "#author_text_box_item_name",
+
+    "$enable_profanity_filter": true
+  },
+
+  "author_stack_panel_2": {
+    "type": "stack_panel",
+    "size": [ "100%", 30 ],
+    "offset": [ 0, 10],
+    "orientation": "horizontal",
+
+    "controls": [
+      {
+        "author_label_panel": {
+          "type": "panel",
+          "size": [ "100%c", "100%c" ],
+
+          "controls": [
+            { "author_label2@book.author_label": {} }
+          ]
+        }
+      },
+      {
+        "author_text_panel": {
+          "type": "panel",
+          "size": [ "fill", 18 ],
+          "controls": [
+            { "author_text_box_multiline@book.author_text_box_multiline": {} }
+          ]
+        }
+      }
+    ]
+  },
+  "sign_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100% - 8px", "100%c" ],
+    "offset": [ 4, 4 ],
+    "controls": [
+      {
+        "1": {
+          "type": "stack_panel",
+          "size": [ "fill", "100%c" ],
+          "controls": [
+            {"text2":{"type":"label","text":"book.editTitle"}},
+            {"title_text_box_multiline@book.title_text_box_multiline": {}},
+            {"padding0@how_to_play_common.paragraph":{"$text":""}},
+            {"author_stack_panel_2@book.author_stack_panel_2": {}},
+            {"text3@how_to_play_common.paragraph":{"$text":"book.finalizeWarning"}},
+            {"padding1@how_to_play_common.paragraph":{"$text":""}}
+          ]
+        }
+      }
+    ]
+  },
+
+  "book_screen@common.base_screen": {
+    "$close_on_player_hurt|default": false,
+    "close_on_player_hurt": "$close_on_player_hurt",
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_exit",
+        "to_button_id": "button.book_exit",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.book_exit",
+        "mapping_type": "global"
+      }
+    ],
+    "$screen_content": "book.book_screen_content"
+  },
+
+  "book_screen_content": {
+    "type": "panel",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "size": [ 204, 140 ], // You can window size change.
+    "$text_name": "book.title",
+    "controls": [
+      {
+        "common_panel@common.common_panel": { "$dialog_background": "dialog_background_hollow_2" }
+      },
+      {
+        "title_label@common_dialogs.title_label": {
+		      "$show_close_button|default": false
+		    }
+      },
+      {
+        "view_screen": {
+          "type": "panel",
+          "size": [ "100% - 16px", "100% - 65px" ],
+          "offset": [ 0, 23 ],
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "controls": [
+            { "page_text2@book.page_text2": {}}
+          ],
+          "bindings": [
+              {
+                "binding_name": "#viewing",
+                "binding_name_override": "#visible"
+              }
+          ]
+        }
+      },
+      {
+        "sign_screen": {
+          "type": "panel",
+          "size": [ "100% - 16px", "100% - 65px" ],
+          "offset": [ 0, 23 ],
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "controls": [
+            {"sign_panel_scroll@book.sign_panel_scroll":{}}
+          ],
+          "bindings": [
+              {
+                "binding_name": "#signing",
+                "binding_name_override": "#visible"
+              }
+          ]
+        }
+      },
+      {
+        "sign_button_panel": {
+          "type": "panel",
+          "controls": [
+            {
+              "viewing_ok_button@common_buttons.light_text_button": {
+                "$pressed_button_name": "button.menu_exit",
+                "$button_text": "gui.ok",
+                "size": [ "100% - 14px", 30 ],
+                "offset": [ 0, -7 ],
+                "anchor_from": "bottom_middle",
+                "anchor_to": "bottom_middle",
+                "bindings": [
+                    {
+                      "binding_name": "(not #editable)",
+                      "binding_name_override": "#visible"
+                    }
+                  ]
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#viewing",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "sign_close": {
+          "type": "panel",
+          "controls": [
+            {
+              "sign_cancel_close_buttons": {
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "size": [ "100% - 14px", 30 ],
+                "offset": [ 0, -7 ],
+                "anchor_from": "bottom_middle",
+                "anchor_to": "bottom_middle",
+                "controls": [
+                  {
+                    "sign_and_close@common_buttons.light_text_button":{
+                        "size": [ "fill", "100%" ],
+                        "$button_text": "book.signButton",
+                        "$pressed_button_name": "button.sign_book"
+                    }
+                  },
+                  {
+                    "padding": {
+                      "type": "panel",
+                      "size": [ 2, "100%" ]
+                    }
+                  },
+                  {
+                    "cancel@common_buttons.light_text_button":{
+                        "size": [ "50%", "100%" ],
+                        "$button_text": "gui.close",
+                        "$pressed_button_name": "button.book_exit"
+                    }
+                  }
+                ],
+                "bindings": [
+                    {
+                      "binding_name": "#editable",
+                      "binding_name_override": "#visible"
+                    }
+                ]
+              }
+            }
+          ],
+          "bindings": [
+              {
+                "binding_name": "#viewing",
+                "binding_name_override": "#visible"
+              }
+            ]
+        }
+      },
+      {
+        "sign_cancel_close_buttons": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100% - 14px", 30 ],
+          "offset": [ 0, -7 ],
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "controls": [
+            {
+              "sign_and_close@common_buttons.light_text_button":{
+                  "size": [ "fill", "100%" ],
+                  "$button_text": "book.finalizeButton",
+                  "$pressed_button_name": "button.finalize",
+                  "bindings": [
+                    {
+                      "binding_name": "#finalize_button_enabled",
+                      "binding_name_override": "#enabled"
+                    }
+                  ]
+              }
+            },
+            {
+              "padding": {
+                "type": "panel",
+                "size": [ 2, "100%" ]
+              }
+            },
+            {
+              "cancel@common_buttons.light_text_button":{
+                  "size": [ "50%", "100%" ],
+                  "$button_text": "gui.cancel",
+                  "$pressed_button_name": "button.book_exit"
+              }
+            }
+          ],
+          "bindings": [
+              {
+                "binding_name": "#signing",
+                "binding_name_override": "#visible"
+              }
+          ]
+        }
+      }
+    ]
+  }
+}

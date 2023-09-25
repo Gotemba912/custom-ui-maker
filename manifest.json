@@ -1,0 +1,17 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Custom UI Maker v1.1.0",
+    "description": "本と羽根ペンを使って内容を自由に入力して表示できるUIを作ることができます!\nby YuuhaLand",
+    "uuid": "ee206457-7c7c-4446-a2e7-2e7d99f64576",
+    "version": [ 1, 0, 0 ],
+    "min_engine_version": [ 1, 13, 0 ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "c50e6f20-28dd-4289-b9ba-40c2b1c1b349",
+      "version": [ 1, 0, 0 ]
+    }
+  ]
+}
